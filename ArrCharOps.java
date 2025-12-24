@@ -36,30 +36,61 @@ public class ArrCharOps {
     /** Returns the char value at the specified index. Assume that the array is non-empty.
      */
     public static char charAt(char[] arr, int index) {
-        // Replace the following statement with your code
-        return 0;
+        return arr [index];
     }
 
     /** If the two arrays have the same value in every index, 
      *  returns true; Otherwise returns false.
      */
     public static boolean equals(char[] arr1, char[] arr2) {
-        // Replace the following statement with your code
-        return false;
+        boolean ret = true;
+        if (arr1 == null || arr2 == null) {
+            return false;
+        } 
+        if (arr1.length == arr2.length) {
+            for (int i = 0; i < arr1.length; i++) {
+                 if (!(arr1[i] == arr2[i])) {
+                    return false;
+                }
+            }
+                
+        } else {
+            return false;
+        } 
+        return ret;
+        
     }
 
     /** Returns the index within the given array of the first occurrence of the given character.
      *  If no such character is found, returns -1.
      */
     public static int indexOf(char[] arr, char ch) {
-        // Replace the following statement with your code
+        if (arr.length == 0) {
+            return -1;
+        }
+        int index = 0;
+        while (index < arr.length) {
+            if (arr[index] == ch) {
+                return index;
+            }
+            index++;
+        }
         return -1;
     }
 
     /** Same as indexOf(char[], char), but starts the search in the given index.
      */
     public static int indexOf(char[] arr, char ch, int fromIndex) {
-        // Replace the following statement with your code
+        if (arr.length == 0) {
+            return -1;
+        }
+        int index = fromIndex;
+        while (index < arr.length) {
+            if (arr[index] == ch) {
+                return index;
+            }
+            index++;
+        }
         return -1;
     }
 
@@ -67,15 +98,33 @@ public class ArrCharOps {
      *  If no such character is found, returns -1.
      */
     public static int lastIndexOf(char[] arr, char ch) {
-        // Replace the following statement with your code
+        if (arr.length == 0) {
+            return -1;
+        }
+        int index = arr.length -1;
+        while (index >= 0) {
+            if (arr[index] == ch) {
+                return index;
+            }
+            index--;
+        }
         return -1;
     }
 
     /* Returns an array which is the concatanation of the two given arrays.
     */
     public static char[] concat(char[] arr1, char[] arr2) {
-        // Replace the following statement with your code
-        return null;
+        char[] ret = new char[arr1.length + arr2.length];
+        int index = 0;
+        for (int i = 0; i < arr1.length; i++) {
+            ret [index] = arr1[i];
+            index++;
+        }
+        for (int i = 0; i < arr2.length; i++) {
+            ret [index] = arr2[i];
+            index++;
+        }
+        return ret;
     }
 
     /** Returns a new array that can be described as a sub-array of this array.
@@ -84,8 +133,17 @@ public class ArrCharOps {
      *  characters containing the characters "urge".
      */     
     public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
-        // Replace the following statement with your code
-        return null;
+        if (arr.length == 0 || endIndex > arr.length || endIndex < beginIndex) {
+            return null;
+        }
+        char[] ret = new char[endIndex - beginIndex];
+        int index = 0;
+        for (int i = beginIndex; i < endIndex; i++) {
+            ret[index] = arr[i];
+            index++;
+        }
+
+        return ret;
     }
 
      /** Returns a single integer that represents the given array. This integer is sometimes 
@@ -96,8 +154,19 @@ public class ArrCharOps {
      *  The hash value of an empty array is zero.
      */
     public static long hashCode(char[] arr) {
-        // Replace the following statement with your code
-        return 0;
+        if (arr.length == 0 ) {
+            return 0;
+        }
+        long hashCode = 0;
+        for ( int i = 0; i < arr.length; i++) {
+            if (i == arr.length -1) {
+                hashCode = hashCode + arr[i];
+            } else {
+                hashCode = hashCode + arr[i] * (long) Math.pow (7.0, arr.length - i -1);
+            }
+        }
+        
+        return hashCode;
     }
 
     /**
@@ -126,7 +195,53 @@ public class ArrCharOps {
      *         return -2 if there is an error with the input.
      */
     public static int compareTo(String str1, String str2) {
-        // Replace the following statement with your code
-        return 0;
+        char[] string1 = new char[str1.length()];
+        char[] string2 = new char[str2.length()];
+        int ret = 0;
+        if (str1.equals ("") || str2.equals ("")) {
+            return -2;
+        }
+        for (int i = 0; i < str1.length(); i++) {
+            string1[i] = str1.charAt(i);
+            if (!(string1[i] >= 65 &&  string1[i] <= 90 || string1[i] >= 97 &&  string1[i] <= 122)){
+                return -2;
+            }
+        }
+        for (int i = 0; i < str2.length(); i++) {
+            string2[i] = str2.charAt(i);
+            if (!(string2[i] >= 65 &&  string2[i] <= 90 || string2[i] >= 97 &&  string2[i] <= 122)){
+                return -2;
+            }
+        }
+        int lowerIndex = 0;
+        if (str1.length() == str2.length()) {
+            lowerIndex = str1.length();
+        } else if (str1.length() > str2.length()) {
+            lowerIndex = str2.length();
+        } else {
+            lowerIndex = str1.length();
+        }
+        for (int i = 0; i < lowerIndex; i++) {
+            if (string1[i] == string2[i]) {
+                ret = 0;
+            } else if (string1[i] < string2[i]) {
+                ret = -1;
+                break;
+            } else {
+                ret = 1;
+                break;
+                
+            } 
+        }
+        if (ret == 0) {
+            if (str1.length() > str2.length()) {
+                ret = 1;
+            }
+            else if (str1.length() < str2.length()) {
+                ret = -1;
+            }
+        }
+
+        return ret;
     }
 }

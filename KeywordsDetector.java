@@ -21,6 +21,57 @@ public class KeywordsDetector {
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
+        for (int i = 0; i < sentences.length; i++) {
+             for (int j = 0; j < keywords.length; j++) {
+                if (contains(lowerCase(sentences[i]), lowerCase(keywords[j]))) {
+                    System.out.println(sentences[i]);
+                    break;
+                }
+            }
+            
+        }
+    }
+    public static String lowerCase(String str) {
+        if (str.equals("")) {
+            return "";
+        }
+        String ret = "";
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) >= 65 &&  str.charAt(i) <= 90) {
+                ret = ret + ((char) (str.charAt(i) + 32));
+            } else {
+                ret = ret + str.charAt(i);
+            }
+        }
+        return ret;
+    }
+
+    /** If str1 contains str2, returns true; otherwise returns false. */
+    public static boolean contains(String str1, String str2) {
+        if (str2.length() > str1.length()) {
+            return false;
+        } else if (str2.length() == 0) {
+            return true;
+        }
+        int indexOf1 = 0;
+        
+        for (int i = 0; i <= str1.length() - str2.length(); i++) {
+            if (str1.charAt(i) == str2.charAt(0)) {
+                indexOf1 = i;
+                int count = 0;
+                for (int j = 0; j < str2.length(); j++) {
+                    if (str2.charAt(j) != str1.charAt(indexOf1)) {
+                        break;
+                    } else {
+                        count++;
+                    }
+                    if (count == str2.length()) {
+                        return true;
+                    }
+                    indexOf1++;
+                }
+            }
+        }
+        return false;
     }
 }
